@@ -14,12 +14,27 @@
   
 <div class="container">
   <h3>Notice Select Page</h3>
+  <hr>
   <h3 id="num">${dto.num}</h3>
+  <hr>
   <h3>Title : ${dto.title}</h3>
+  <hr>
   <h3>Writer : ${dto.writer}</h3>
+  <hr>
   <h3>Contents : ${dto.contents}</h3>
-  <input type="button" title="${dto.num}" value="Delete" class="btn btn-warning" id="del">
-  <input type="button" class="btn btn-primary" value="Update" id="update">
+  <hr>
+  
+  <div>
+  <c:forEach items="${dto.boardFileDTOs}" var="dto">
+  	<a href="./fileDown?fileName=${dto.fileName}&oriName=${dto.oriName}">${dto.oriName}</a>
+  	<hr>
+  </c:forEach>
+  </div>
+  
+  
+  
+  <input type="button" title="${dto.num}" value="Delete" class="btn btn-default" id="del">
+  <input type="button" class="btn btn-default" value="Update" id="update">
   <c:if test="${board ne 'notice'}">
   <a href="./${board}Reply?num=${dto.num}" class="btn btn-info">Reply</a>
   </c:if>

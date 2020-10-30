@@ -6,7 +6,7 @@
 <mapper namespace="com.choa.s4.member.memberFile.MemberFileDAO">
 
 	<insert id="setInsert" parameterType="MemberFileDTO">
-		insert into memberFile values(mb_seq.nextval, #{id}, #{fileName}, #{oriName})
+		insert into memberFile values(mb.nextval, #{id}, #{fileName}, #{oriName})
 	</insert>
 
 	<select id="getOne" parameterType="MemberDTO" resultType="MemberFileDTO">

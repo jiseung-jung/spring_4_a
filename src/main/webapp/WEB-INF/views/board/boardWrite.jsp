@@ -31,7 +31,7 @@
     
     <div class="form-group">
       <label for="writer">Writer:</label>
-      <input type="text" class="form-control" readonly="readonly" value="${member.id}" id="writer" placeholder="Enter Writer" name="writer">
+      <input type="text" class="form-control" value="${member.id}" id="writer" placeholder="Enter Writer" name="writer">
     </div> 
     
      <div class="form-group">
@@ -43,6 +43,7 @@
 	<div id ="files">
 		
 	</div>
+	<hr>
  	
  	  <div class="form-group">
  	  	<label></label>

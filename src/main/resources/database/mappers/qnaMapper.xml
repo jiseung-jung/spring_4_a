@@ -4,6 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.choa.s4.board.qna.QnaDAO">
+
+
+	
+	<insert id="setInsertFile" parameterType="BoardFileDTO">
+		insert into qnaFile values(qna_seq.nextval, #{num}, #{fileName}, #{oriName}) 
+	</insert>
 	
 	<select id="getList" parameterType="Pager" resultType="QnaDTO">
 		select * from
@@ -46,8 +52,11 @@
 	
 	
 	<insert id="setInsert" parameterType="QnaDTO">
-		insert into qna values(qna_seq.nextval
-		, #{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval,0,0)
+		<selectKey keyProperty="num" resultType="Long" order="BEFORE">
+			select qna_seq.nextval from dual
+		</selectKey>
+		insert into qna values
+		(#{num}, #{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval,0,0)
 	</insert>
 	
 	<insert id="setReply" parameterType="QnaDTO">
@@ -66,9 +75,26 @@
 		step> (select step from qna where num=#{num})
 	</update>
 	
-	<select id="getOne" parameterType="QnaDTO" resultType="QnaDTO">
-		select * from qna where num =#{num}
+	<select id="getOne" parameterType="QnaDTO" resultMap="getOneResult">
+		select Q.*, QF.* from
+		qna Q left join qnaFile QF
+		on Q.num = QF.num
+		where Q.num = #{num}	
 	</select>
+	
+	<resultMap type="QnaDTO" id="getOneResult">
+		<result column="title" property="title"/>
+		<result column="writer" property="writer"/>
+		<result column="contents" property="contents"/>
+		<result column="regDate" property="regDate"/>
+		<result column="hit" property="hit"/>
+		
+		<collection property="boardFileDTOs" ofType="BoardFileDTO" javaType="java.util.List">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
 
 	
 </mapper>    

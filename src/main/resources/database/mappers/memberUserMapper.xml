@@ -9,7 +9,7 @@
 	</select>
 
 	<insert id="setMemberJoin" parameterType="MemberDTO">
-		insert into member values(mb_seq.nextval, #{id}, #{pw}, #{name}, #{email})
+		insert into member values(mb.nextval, #{id}, #{pw}, #{name}, #{email})
 	
 	</insert>
 	

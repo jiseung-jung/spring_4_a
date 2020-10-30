@@ -16,6 +16,7 @@
   		<typeAlias type="com.choa.s4.util.FileSaver" alias="FileSaver"/>
   		<typeAlias type="com.choa.s4.board.memo.MemoDTO" alias="MemoDTO"/>
   		<typeAlias type="com.choa.s4.member.memberFile.MemberFileDTO" alias="MemberFileDTO"/>
+  		<typeAlias type="com.choa.s4.board.file.BoardFileDTO" alias="BoardFileDTO"/>
   	
   	</typeAliases>
   

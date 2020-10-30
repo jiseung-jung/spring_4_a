@@ -11,7 +11,7 @@ import com.choa.s4.util.Pager;
 public interface BoardService {
 	
 	//insert
-	public int setInsert(BoardDTO boardDTO)throws Exception;
+	public int setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session)throws Exception;
 	
 	//update
 	public int setUpdate(BoardDTO boardDTO)throws Exception;

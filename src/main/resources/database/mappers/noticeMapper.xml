@@ -5,34 +5,60 @@
 
 <mapper namespace="com.choa.s4.board.notice.NoticeDAO">
 
+	<insert id="setInsertFile" parameterType="BoardFileDTO">
+		insert into noticeFile values(notice.nextval, #{num}, #{fileName}, #{oriName}) 
+	</insert>
+
+
+
+
 	<update id="setUpdate" parameterType="NoticeDTO">
-		update notice set title=#{title}, contents=#{contents} where num=#{num}
+		update notice1 set title=#{title}, contents=#{contents} where num=#{num}
 	</update>
 
 
 	<delete id="setDelete" parameterType="NoticeDTO">
-		delete notice where num=#{num}
+		delete notice1 where num=#{num}
 	</delete>
 
 	<resultMap type="NoticeDTO" id="getOneResult">
-		<id column="n" property="num" />
-		<result column="t" property="title"/>
+		<id column="num" property="num" />
+		<result column="title" property="title"/>
 		<result column="writer" property="writer"/>
 		<result column="contents" property="contents"/>
+		<result column="regDate" property="regDate"/>
+		<result column="hit" property="hit"/>
+		<collection property="boardFileDTOs" ofType="BoardFileDTO" javaType="java.util.List">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
 	</resultMap>
 
 	<select id="getOne" parameterType="NoticeDTO" resultMap="getOneResult">
-		select num as n, title as t, writer, contents from notice where num = #{num}
+		select N.*, NF.*
+		from notice1 N left join noticeFile NF
+		on N.num = NF.num
+		where N.num=#{num}
+	</select>
+	
+	
+	
+	<select id="getNum" resultType="Long">
+		select notice.nextval from dual 
 	</select>
 	
 	<insert id="setInsert" parameterType="NoticeDTO">
-		insert into notice values(notice_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0)
+		<selectKey keyProperty="num" resultType="long" order="BEFORE">
+			select notice.nextval from dual
+		</selectKey>
+		insert into notice1 values(#{num}, #{title}, #{writer}, #{contents}, sysdate, 0)
 	</insert>
 	
 	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
 		select * from
 		(select rownum R, N.* from 
-		(select * from notice where 
+		(select * from notice1 where 
 		<choose>
 			<when test="kind == 'tt'">
 				title
@@ -51,7 +77,7 @@
 	</select>
 	
 	<select id="getCount" resultType="Long" parameterType="Pager">
-		select count(num) from notice
+		select count(num) from notice1
 		where 
 		<choose>
 			<when test="kind == 'tt'">

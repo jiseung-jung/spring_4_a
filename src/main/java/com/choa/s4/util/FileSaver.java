@@ -25,7 +25,7 @@ public class FileSaver {
 		//이름
 		//2. Unique 한 이름 생성하는 객체
 		String fileName = UUID.randomUUID().toString();
-		fileName = name + "_" + multipartFile.getOriginalFilename();
+		fileName = fileName+"_"+ multipartFile.getOriginalFilename();
 		dest = new File(dest, fileName);
 		multipartFile.transferTo(dest);
 		
@@ -42,7 +42,7 @@ public class FileSaver {
 		//이름
 		//2. Unique 한 이름 생성하는 객체
 		String fileName = UUID.randomUUID().toString();
-		fileName = name + "_" + multipartFile.getOriginalFilename();
+		fileName = fileName+"_"+ multipartFile.getOriginalFilename();
 		dest = new File(dest, fileName);
 		FileCopyUtils.copy(multipartFile.getBytes(), dest);
 		
