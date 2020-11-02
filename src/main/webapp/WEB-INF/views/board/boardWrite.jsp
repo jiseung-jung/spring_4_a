@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+
 <style type="text/css">
 	#f {
 		display:none;
@@ -62,6 +68,55 @@
 
 <script type="text/javascript">
 	var count =0;
+	$('#contents').summernote({
+		height:300,
+		callbacks:{
+			onImageUpload:function(files,editor,welEditable){
+				var formData = new FormData();		//가상의 form  태그
+				formData.append('file', files[0]); //파라미터 이름 file
+				
+				$.ajax({
+					data:formData,
+					type:"POST",
+					url:"./summernote",
+					data:formData,
+					enctype:"multipart/form-data",
+					cache:false,
+					processData:false,
+					contentType: false,
+					success:function(data){
+						data = data.trim();
+						$("#contents").summernote('editor.InsertImage', data);
+						
+						$.ajax({
+							type:"POST",
+							url:"./summernoteDelete",
+							data:{
+								file:fileName
+							},
+							success:function(data){
+								alert(data);
+							}
+						
+						});
+					}
+				})
+			},//upload End
+			
+			onMediaDelete:function(files){
+				var fileName = $(files[0]).attr("src");
+				//fileName에서 파일명만 구해오기
+				fileName=fileName.substring(fileName.lastIndexOf("\\")+1);
+				alert(fileName);
+			}
+		}
+	});
+	
+	
+	$('#btn').click(function() {
+		var contents = $("#contents").summernote("code");
+		alert(contents);
+	});
 
 	$("#files").on('click', ".del",function() {
 		alert("del");

@@ -6,6 +6,11 @@
 <mapper namespace="com.choa.s4.board.qna.QnaDAO">
 
 
+	<update id="setUpdate" parameterType="QnaDTO">
+		update qna set title=#{title}, contents=#{contents} where num=#{num}
+	</update>
+
+
 	
 	<insert id="setInsertFile" parameterType="BoardFileDTO">
 		insert into qnaFile values(qna_seq.nextval, #{num}, #{fileName}, #{oriName}) 

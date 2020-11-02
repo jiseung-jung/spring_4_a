@@ -37,7 +37,7 @@ public class FileDown extends AbstractView{
 		
 		
 		//header 설정
-		response.setHeader("Content-Disposition", "attachment:fileName=\""+downName+"\"");
+		response.setHeader("Content-Disposition", "attachment;fileName=\""+downName+"\"");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		
 		//Client 전송

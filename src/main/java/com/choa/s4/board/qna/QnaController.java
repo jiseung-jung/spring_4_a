@@ -1,5 +1,6 @@
 package com.choa.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -24,8 +25,57 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	
+	@GetMapping("qnaUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		System.out.println("===qnaUpdate===");
+		boardDTO = qnaService.getOne(boardDTO);
+		
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/boardUpdate");
+		return mv;
+	}
+	
+	//--------------------------------------------------------------------
+	
+	@PostMapping("summernoteDelete")
+	public ModelAndView summernoteDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boolean result = qnaService.summernoteDelete(file, session);
+		
+		mv.addObject("mag", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	
+	//--------------------------------------------------------------------
+	
+	@PostMapping("summernote")
+	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		System.out.println(file.getOriginalFilename());
+		System.out.println(file.getSize());
+		
+		String fileName = qnaService.summernote(file, session);
+		System.out.println(fileName);
+		
+		String name = session.getServletContext().getContextPath()+File.separator;
+		name = name+"resources"+File.separator+"upload"+File.separator;
+		name = name+"qna"+File.separator+fileName;
+		
+		mv.addObject("mag", fileName);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	//--------------------------------------------------------------------
+	
+	
 	@GetMapping("fileDown")
-	public ModelAndView fileDown(BoardFileDTO boardFileDTO) throws Exception{
+	public ModelAndView fileDown(BoardFileDTO boardFileDTO, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("board","qna");
 		mv.addObject("fileDTO", boardFileDTO);
@@ -33,6 +83,8 @@ public class QnaController {
 		
 		return mv;
 	}
+	
+	//--------------------------------------------------------------------
 	
 	
 	@PostMapping("qnaReply")
@@ -62,6 +114,8 @@ public class QnaController {
 		return mv;
 	}
 	
+	//--------------------------------------------------------------------
+	
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO)throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -80,6 +134,8 @@ public class QnaController {
 		return mv;
 				
 	}
+	
+	//--------------------------------------------------------------------
 	
 	@PostMapping("qnaWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session)throws Exception{
@@ -106,6 +162,8 @@ public class QnaController {
 		return mv;
 	}
 	
+	//--------------------------------------------------------------------
+	
 	@GetMapping("qnaList")
 	public ModelAndView getList(Pager pager)throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -120,5 +178,9 @@ public class QnaController {
 		mv.setViewName("board/boardList");
 		return mv;
 	}
+	
+	
+	
+	
 
 }

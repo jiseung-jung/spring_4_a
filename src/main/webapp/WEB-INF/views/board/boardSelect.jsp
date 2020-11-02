@@ -38,12 +38,13 @@
   <c:if test="${board ne 'notice'}">
   <a href="./${board}Reply?num=${dto.num}" class="btn btn-info">Reply</a>
   </c:if>
+  
 </div>
 
 <script type="text/javascript">
 	//$("css선택자").action();
 	$("#update").click(function() {
-		location.href="./noticeUpdate?num=${dto.num}";
+		location.href="./${board}Update?num=${dto.num}";
 	});
 	
 	$("#del").click(function() {
