@@ -71,19 +71,18 @@
 	$('#contents').summernote({
 		height:300,
 		callbacks:{
-			onImageUpload:function(files,editor,welEditable){
+			onImageUpload:function(files, editor, welEditable){
 				var formData = new FormData();		//가상의 form  태그
-				formData.append('file', files[0]); //파라미터 이름 file
+				formData.append('file', files[0]);  //파라미터 이름 file
 				
 				$.ajax({
 					data:formData,
 					type:"POST",
-					url:"./summernote",
-					data:formData,
-					enctype:"multipart/form-data",
+					url:'summernote',
 					cache:false,
-					processData:false,
 					contentType: false,
+					enctype:'multipart/form-data',
+					processData:false,
 					success:function(data){
 						data = data.trim();
 						$("#contents").summernote('editor.InsertImage', data);
