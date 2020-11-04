@@ -41,7 +41,7 @@
 	
 	
 	<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">
-		select M.*, F.filename, F.oriname
+		select M.*, F.*
 		from member M Inner join memberfile F
 		on(M.id=F.id)
 		where M.id=#{id} and M.pw= #{pw}

@@ -23,7 +23,7 @@
 	      <input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
 	    </div>
 	    <div class="checkbox">
-	      <label><input type="checkbox" name="remember"> Remember me</label>
+	      <label><input type="checkbox" name="remember" value="check"> Remember me</label>
 	    </div>
 	    <button type="submit" class="btn btn-default">Submit</button>
   </form>

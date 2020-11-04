@@ -24,6 +24,9 @@
   	
   	<img alt="main Image" src="./resources/images/index/3.jpg">
   </div>
+  
+  	<a href="./cookie/makeCookie">Make Cookie</a>
+  
 </div>
 
 </body>
