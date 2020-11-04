@@ -70,4 +70,18 @@
     <url-pattern>/notice/noticeUpdate</url-pattern>
     <url-pattern>/notice/noticeDelete</url-pattern>
   </filter-mapping>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/error/error404</location>
+  </error-page>
+  
+    <error-page>
+  	<error-code>400</error-code>
+  	<location>/WEB_INF/views/error/error_front.jsp</location>
+  </error-page>
+  
+  
+  
+  
 </web-app>

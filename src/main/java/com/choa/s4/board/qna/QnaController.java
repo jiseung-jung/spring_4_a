@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -176,6 +177,14 @@ public class QnaController {
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
 		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
+	
+	@ExceptionHandler(NullPointerException.class)
+	public ModelAndView ex1() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("error/error_back");
 		return mv;
 	}
 	
