@@ -28,11 +28,41 @@
 		<beans:property name="order" value="0"></beans:property>
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<mapping path="/notice/*"/>	
+			<beans:ref bean="qnaInterceptor"/>
+		</interceptor>	
+		
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<mapping path="/member/memberPage"/>			
+			<exclude-mapping path="/qna/qnaList"/>
+			<beans:ref bean="qnaMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/notice/*"/>
+			<exclude-mapping path="/notice/noticeList"/>
+			<exclude-mapping path="/notice/noticeSelect"/>
+			<beans:ref bean="noticeMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/qna/qnaUpdate"/>
+			<beans:ref bean="qnaUpdateInterceptor"/>
+		</interceptor>
+		
+	</interceptors>
+	
+	<beans:import resource="classpath:config/*-context.xml"/>
+	
+	
 	<beans:bean class="com.choa.s4.util.FileDown" id="fileDown"></beans:bean>
 	
 	<context:component-scan base-package="com.choa.s4" />
 	
-	<tx:annotation-driven proxy-target-class="true"/>	
 	
 	
 	
